@@ -3,6 +3,7 @@ script_loc=`cd $(dirname $0) && pwd -P`
 . $script_loc/common.sh
 
 $GCC_PATH/configure                                     \
+ --build=${BUILD} \
  --disable-libada                                       \
  --disable-libcc1                                       \
  --disable-libcilkrts                                   \
@@ -31,7 +32,7 @@ $GCC_PATH/configure                                     \
  $MULTILIB_LIST
 
 make -w -j${NPROC}
-
-make -w -C gcc cross-gnattools ada.all.cross
+make -w -j${NPROC} -C gcc cross-gnattools
+make -w -j${NPROC} -C gcc ada.all.cross
 
 make -w install-strip
